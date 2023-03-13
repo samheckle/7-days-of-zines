@@ -1,3 +1,43 @@
 <div class="home-content">
+  <div class="page" id="page1">
+      <a id="page1_link" href="/page-1">page 1</a>
+  </div>
+  <div class="page page2">
+      <a id="page2_link" href="/page-1">page 2</a>
+  </div>
+  <div class="page page3"></div>
+  <div class="page page4"></div>
+  <div class="page page5"></div>
+  <div class="page page6"></div>
+  <div class="page page7"></div>
+  <div class="page about">
+    <a href="/about">about</a>
+  </div>
+
+  <script>
+    const page1 = document.getElementById("page1"); 
+    const link = document.getElementById("page1_link")
+    const img = document.createElement("img");
+    if(window.innerWidth < 1025){
+        img.src = "assets/page1/4-rooms.gif"
+        link.style.opacity = "10"
+    } else {
+        img.src = "assets/page1/4-rooms.png"
+        link.style.opacity = "0"
+    }
+    img.style.filter = "grayscale(100%)"
+    page1.addEventListener("mouseenter", (e)=>{
+        img.src = "assets/page1/4-rooms.gif";
+        img.style.filter = "grayscale(0%)"
+        link.style.opacity = "10"
+    })
+    page1.addEventListener("mouseleave", (e)=>{
+        img.src = "assets/page1/4-rooms.png"
+        img.style.filter = "grayscale(100%)"
+        link.style.opacity = "0"
+    })
     
+    img.className = "page_image";
+    page1.appendChild(img);
+  </script>
 </div>

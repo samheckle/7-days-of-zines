@@ -15,4 +15,4 @@ app.get('/', (req, res) => {
     res.render('home', {layout: 'main'});
 });
 
-app.listen(80);
+app.listen(8000);

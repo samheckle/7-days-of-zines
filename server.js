@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 app.get('/page-1', (req, res) => {
     // res.render('home', {layout: false});
-    res.render('page1', {layout: 'main'});
+    res.render('page1', {layout: 'p5'});
 });
 
 app.listen(8000);

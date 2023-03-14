@@ -10,10 +10,16 @@
 <script src="page1/particle.js" type="text/javascript"></script>
 <script src="page1/sketch.js" type="text/javascript"></script>
 <script>
+    console.log()
     const touch = document.getElementById("touching");
     const clickable = document.getElementById("clickable");
     const looking = document.getElementById("looking")
     const looking_image = document.getElementById("looking_image")
+
+    if(window.innerHeight < 800){
+        console.log(window.innerHeight)
+        touch.style.top = "550px"
+    }
 
     let dragging = false;
     let visTimeoutId;
@@ -22,8 +28,10 @@
     clickable.addEventListener('click', (e)=>{
         console.log("click")
         touch.style.color = "red"
+        //touch.style.transform = "scale(3)"
         setTimeout(()=>{
             touch.style.color = "black"
+        //    touch.style.transform = "scale(1)"
         }, 1000)
     })
     if(window.innerWidth > 1025){

@@ -38,6 +38,20 @@ body {
   z-index: 1;
 }
 
+.header,
+.content,
+.contact {
+  border: white solid 2px;
+  padding: 10px 20px;
+}
+
+.about-page {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 @media (min-width: 320px) {
   .page {
     width: 100%;
@@ -46,15 +60,42 @@ body {
   .page_image {
     width: 100%;
   }
-  a {
+  .page a {
     font-size: 16pt;
+  }
+  .about-page {
+    width: 100%;
+    margin: 0px 3px;
+    font-size: 24pt;
+    
+  }
+  .about-page a{
+    font-size: 16pt;
+  }
+  h1, h3{
+    margin-bottom: 0;
+  }
+  .about-page .content{
+    font-size: 16pt;
+  }
+  .header,
+  .content,
+  .contact {
+    margin-top: 5px;
+    height: calc(100% * (1 / 3) - 5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  br{
+    margin-top: 3px;
   }
 }
 @media (min-width: 641px) {
   .page {
     width: calc(100% * (1 / 2) - 4px);
   }
-  a {
+  .page a {
     font-size: 24pt;
   }
 }
@@ -66,16 +107,30 @@ body {
   .page_image {
     height: 100%;
   }
+  .about-page {
+    position: absolute;
+    width: 50%;
+    text-align: right;
+    overflow: clip;
+    right: 20px;
+    justify-content: center;
+  }
+  .header,
+  .content,
+  .contact {
+    height: calc(100% * (1 / 3) - 5px);
+  }
 }
 /* #page1 {
   height: 100%;
   width: 100%;
 } */
-
 a {
-  height: 100%;
   text-decoration: none;
   color: white;
+}
+.page a {
+  height: 100%;
   z-index: 10;
   transition: transform 2s, opacity 0.5s;
   display: flex;
@@ -87,7 +142,7 @@ a {
   justify-content: space-around;
 }
 
-a:hover {
+.page a:hover {
   border: 1px solid white;
   transform: scale(0.8);
 }

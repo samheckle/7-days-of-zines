@@ -56,7 +56,10 @@ h1, h2{
 
 }
 @media (min-width: 641px) {
-
+    .touching{
+        top: 550px;
+        right: 400px;
+    }
 }
 @media (min-width: 1025px) {
     .looking{
@@ -68,7 +71,7 @@ h1, h2{
         right: 550px;
     }
     .touching{
-        top: 800px;
+        bottom: 10%;
         right: 400px;
     }
     #looking_image{

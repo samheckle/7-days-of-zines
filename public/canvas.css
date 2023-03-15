@@ -9,7 +9,8 @@ main {
   z-index: 1;
 }
 
-h1, h2{
+h1,
+h2 {
   position: absolute;
   background-color: white;
   padding: 10px 5px;
@@ -17,65 +18,75 @@ h1, h2{
 }
 
 #clickable {
-    height: 100%;
-    width: 100%;
-    z-index: 9;
-    position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 9;
+  position: absolute;
 }
 
-#looking_image{
-    position:absolute;
-    z-index: 8;
+#looking_image {
+  position: absolute;
+  z-index: 8;
 }
 
-.hidden{
-    visibility: hidden;
+.hidden {
+  visibility: hidden;
 }
 
-.visible{
-    visibility: visible;
+.visible {
+  visibility: visible;
 }
 
 @media (min-width: 320px) {
-    .looking{
-        top: 350px;
-        right: 50px;
-    }
-    .not{
-        top: 400px;
-        right: 75px;
-    }
-    .touching{
-        top: 550px;
-        right: 10px;
-    }
-    #looking_image{
-        top: 100px;
-        width: 100%;
-    }
-
+  .looking {
+    top: 350px;
+    right: 50px;
+  }
+  .not {
+    top: 400px;
+    right: 75px;
+  }
+  .touching {
+    top: 550px;
+    right: 10px;
+  }
+  #looking_image {
+    top: 100px;
+    width: 100%;
+  }
+  #loading{
+    text-align: center;
+    height: 100%;
+    position: relative;
+  }
+  #loading-img {
+    width: 50px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+  }
 }
 @media (min-width: 641px) {
-    .touching{
-        top: 550px;
-        right: 400px;
-    }
+  .touching {
+    top: 550px;
+    right: 400px;
+  }
 }
 @media (min-width: 1025px) {
-    .looking{
-        top: 400px;
-        right: 600px;
-    }
-    .not{
-        top: 450px;
-        right: 550px;
-    }
-    .touching{
-        bottom: 10%;
-        right: 400px;
-    }
-    #looking_image{
-        top: 100px;
-        width: 50%;
-    }
+  .looking {
+    top: 400px;
+    right: 600px;
+  }
+  .not {
+    top: 450px;
+    right: 550px;
+  }
+  .touching {
+    bottom: 10%;
+    right: 400px;
+  }
+  #looking_image {
+    top: 100px;
+    width: 50%;
+  }
 }

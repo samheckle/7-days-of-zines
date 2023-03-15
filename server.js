@@ -20,6 +20,11 @@ app.get('/page-1', (req, res) => {
     res.render('page1', {layout: 'p5'});
 });
 
+app.get('/page-2', (req, res) => {
+    // res.render('home', {layout: false});
+    res.render('page2', {layout: 'p5'});
+});
+
 app.get('/about', (req, res) => {
     // res.render('home', {layout: false});
     res.render('about', {layout: 'main'});

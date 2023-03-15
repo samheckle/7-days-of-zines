@@ -2,8 +2,8 @@
   <div class="page" id="page1">
       <a id="page1_link" href="/page-1">page 1</a>
   </div>
-  <div class="page page2">
-      <a id="page2_link" href="/page-1">page 2</a>
+  <div class="page" id="page2">
+      <a id="page2_link" href="/page-2">page 2</a>
   </div>
   <div class="page page3"></div>
   <div class="page page4"></div>
@@ -15,29 +15,35 @@
   </div>
 
   <script>
-    const page1 = document.getElementById("page1"); 
-    const link = document.getElementById("page1_link")
-    const img = document.createElement("img");
-    if(window.innerWidth < 1025){
-        img.src = "assets/page1/4-rooms.gif"
-        link.style.opacity = "10"
-    } else {
-        img.src = "assets/page1/4-rooms.png"
-        link.style.opacity = "0"
-    }
-    img.style.filter = "grayscale(100%)"
-    page1.addEventListener("mouseenter", (e)=>{
-        img.src = "assets/page1/4-rooms.gif";
-        img.style.filter = "grayscale(0%)"
-        link.style.opacity = "10"
-    })
-    page1.addEventListener("mouseleave", (e)=>{
-        img.src = "assets/page1/4-rooms.png"
-        img.style.filter = "grayscale(100%)"
-        link.style.opacity = "0"
-    })
+    const pages = 2;
     
-    img.className = "page_image";
-    page1.appendChild(img);
+    for(let i = 1; i <= pages; i++){
+
+      const page1 = document.getElementById(`page${i}`); 
+      const link = document.getElementById(`page${i}_link`)
+      const img = document.createElement("img");
+      if(window.innerWidth < 1025){
+          img.src = `assets/page${i}/cover.gif`
+          link.style.opacity = "10"
+      } else {
+          img.src = `assets/page${i}/cover.png`
+          link.style.opacity = "0"
+      }
+      img.style.filter = "grayscale(100%)"
+      page1.addEventListener("mouseenter", (e)=>{
+          img.src = `assets/page${i}/cover.gif`
+          img.style.filter = "grayscale(0%)"
+          link.style.opacity = "10"
+      })
+      page1.addEventListener("mouseleave", (e)=>{
+          img.src = `assets/page${i}/cover.png`
+          img.style.filter = "grayscale(100%)"
+          link.style.opacity = "0"
+      })
+      
+      img.className = "page_image";
+      page1.appendChild(img);
+
+    }
   </script>
 </div>

@@ -22,6 +22,16 @@ window.onload = () => {
 
 let vertical = false;
 let firstClick = true;
+let circles = []
+
+class Circ {
+  constructor(x, y, d){
+    this.x = x
+    this.y = y
+    this.d = d
+    this.speed = random(-2, 2)
+  }
+}
 
 // p5 sketch
 function setup() {
@@ -37,19 +47,45 @@ function setup() {
   strokeWeight(2);
   noFill();
 
-  translate(width / 2, height / 2);
+  // translate(width / 2, height / 2);
   if (vertical) {
     // scale(.5)
     rotate(PI / 2);
   }
   // console.log(firstClick)
-  drawCircle(0, 0, radius);
+  drawCircle(width/2, height/2, radius);
+
+  console.table(circles)
+  // frameRate(10)
 }
 
-function draw() {}
+let x = 0;
+function draw() {
+  background(0)
+
+  for (let i =0; i< circles.length;i++){
+    // if(vertical){
+    //   circles[i].x++
+
+    // }
+    circles[i].x += circles[i].speed
+    if(circles[i].x > width-(circles[i].d/2) || circles[i].x < circles[i].d/2){
+      circles[i].speed *= -1
+    } 
+    
+    // translate(width / 2, height / 2);
+    // console.log(circles[i].x)
+    ellipse(circles[i].x, height/2, circles[i].d)
+  }
+
+  // x++;
+
+  // ellipse(x,0, 300)
+}
 
 function drawCircle(x, y, d) {
   ellipse(x, y, d);
+  circles.push(new Circ(x, y, d))
   if (d > 2) {
     let newD = d * 0.5;
     drawCircle(x + newD, y, newD);
@@ -68,7 +104,6 @@ function mousePressed() {
     fill(255, 0, 0);
     text("fuck you", mouseX, mouseY);
   }
-  // else firstClick = false
 }
 
 function mouseReleased() {

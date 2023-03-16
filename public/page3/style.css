@@ -1,0 +1,45 @@
+@media (min-width: 320px) {
+    #clickable{
+        color: white;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    #page3-text, #page3-text2{
+        font-size: 40px;
+        padding-top: 2%;
+        padding-left: 4%;
+    }
+    #pointer-emoji{
+        font-size: 36px;
+        display: inline-block;
+        text-align: right;
+        padding-right: 2%;
+        animation: 2s ease-in-out .3s infinite bounce;
+    }
+    @keyframes bounce {
+        50% {
+           padding-right: 30px;
+        }
+     }
+}
+@media (min-width: 1025px) {
+    #page3-text, #page3-text2{
+        font-size: 98px;
+        padding-top: 1%;
+        padding-right: 4%;
+    }
+    #pointer-emoji{
+        position: absolute;
+        width: 100%;
+        bottom: 2%;
+        right: 2%;
+        animation: 2s ease-in-out .3s infinite bounce;
+    }    
+    @keyframes bounce {
+        50% {
+           right: 50px;
+        }
+     }
+}

@@ -30,6 +30,11 @@ app.get('/page-3', (req, res) => {
     res.render('page3', {layout: 'p5'});
 });
 
+app.get('/page-4', (req, res) => {
+    // res.render('home', {layout: false});
+    res.render('page4', {layout: 'p5'});
+});
+
 app.get('/about', (req, res) => {
     // res.render('home', {layout: false});
     res.render('about', {layout: 'main'});

@@ -10,21 +10,13 @@ let utopia;
 const backgroundText =
   "Queer utopias in anti-patterns explore the possibility of creating alternative societies that reject heteronormativity and embrace queer identities and experiences. Anti-patterns are patterns of behavior or design that lead to negative outcomes, and queer utopias in anti-patterns challenge the dominant heteronormative structures that perpetuate exclusion and oppression. These utopias imagine new possibilities for social organization and seek to create a world where diverse identities and desires can flourish. The ephemeral nature of heteronormativity refers to the idea that the dominant cultural norms around gender and sexuality are not fixed or immutable, but rather constantly shifting and evolving. Queer utopias in anti-patterns recognize that heteronormativity is not a natural or inevitable state of being, but rather a social construct that can be challenged and transformed. By embracing the ephemeral nature of heteronormativity, these utopias reject the idea that there is a single, fixed way to be queer or to resist heteronormative norms. Overall, queer utopias in anti-patterns offer a powerful vision of a world where difference is celebrated and diversity is valued. By imagining new possibilities for social organization and challenging the dominant cultural norms around gender and sexuality, these utopias offer a glimpse of a future where all individuals can live and love freely and without fear of discrimination or exclusion.";
 
+let displayedWords = [];
+let fullTextHeight = 0;
+
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight);
-
-  background(255);
-  dystopia = new TextPoint("dystopia");
-  utopia = new TextPoint("utopia");
-
-  let queer = new TextPoint("queer");
-  let pattern = new TextPoint("anti-pattern");
-  let no_place = new TextPoint("no place");
-
-  let searchedWords = ["utopia", "queer", "anti-pattern"]
-
   textSize(20);
   textFont("monospace", 20);
+  let charHeight = textLeading() + textDescent();
 
   let charWidth = textWidth("-");
   let widthCharRow = window.innerWidth / charWidth;
@@ -59,9 +51,26 @@ function setup() {
     }
   }
 
+  fullTextHeight = charHeight * rowWords.length
+
+  createCanvas(window.innerWidth, fullTextHeight);
+
+  textSize(20);
+  textFont("monospace", 20);
+
+  background(255);
+
+  let searchedWords = ["utopia", "queer", "anti-pattern"];
+
   let locations = [];
-  for(let j = 0; j < searchedWords.length; j++){
-    locations[j] = []
+  let wordDataArray = [];
+  for (let j = 0; j < searchedWords.length; j++) {
+    locations[j] = [];
+    let wordData = {
+      word: "",
+      numWords: 0,
+    };
+    wordData.word = searchedWords[j];
     for (let i = 0; i < rowWords.length; i++) {
       let words = rowWords[i].split(" ");
       let loc = {
@@ -73,10 +82,11 @@ function setup() {
         if (word.toLowerCase().includes(searchedWords[j])) {
           loc.skipRow = false;
           loc.numChars = numChars;
+          wordData.numWords++;
         }
         numChars += textWidth(word + " ");
       });
-  
+
       if (rowWords[i].toString().toLowerCase().includes(searchedWords[j])) {
         loc.skipRow = false;
         locations[j].push(loc);
@@ -85,17 +95,22 @@ function setup() {
         locations[j].push(loc);
       }
     }
+    wordDataArray.push(wordData);
   }
 
-  let displayedWords = []
-
   for (let i = 0; i < locations.length; i++) {
-    for(let j = 0; j < locations[i].length; j++){
+    for (let j = 0; j < locations[i].length; j++) {
       push();
       fill(color(0, 255, 0));
       if (!locations[i][j].skipRow) {
-        text(searchedWords[i], locations[i][j].numChars, ((j+1)*textLeading())-(textLeading()/2)+2);
-        // displayedWords.push(new TextPoint(searchedWords[i], locations[i][j].numChars, ((j+1)*textLeading())-(textLeading()/2)+2))
+        // text(searchedWords[i], locations[i][j].numChars, ((j+1)*textLeading())-(textLeading()/2)+2);
+        displayedWords.push(
+          new TextPoint(
+            searchedWords[i],
+            locations[i][j].numChars,
+            (j + 1) * textLeading() - textLeading() / 2 + textDescent() * 0.6
+          )
+        );
       }
       pop();
     }
@@ -103,35 +118,54 @@ function setup() {
 
   push();
   fill(color(0, 0, 0, 50));
-  text(backgroundText, 0, 0, window.innerWidth, window.innerHeight);
+  text(backgroundText, 0, 0, window.innerWidth, fullTextHeight);
   pop();
 
-  dystopia.connect(utopia.ellipseX, utopia.ellipseY, color(255, 0, 0));
-  queer.connect(pattern.ellipseX, pattern.ellipseY);
-  pattern.connect(dystopia.ellipseX, dystopia.ellipseY);
-  utopia.connect(no_place.ellipseX, no_place.ellipseY);
+  for (let j = 0; j < wordDataArray.length; j++) {
+    for (let i = 0; i < displayedWords.length; i++) {
+      if (displayedWords[i].text == wordDataArray[j].word) {
+        for (let k = i + 1; k < displayedWords.length; k++) {
+          if (displayedWords[i].text == displayedWords[k].text) {
+            displayedWords[i].connect(
+              displayedWords[k].ellipseX,
+              displayedWords[k].ellipseY,
+              color(0, 0, 0, 70)
+            );
+          }
+          if (
+            (displayedWords[i].text == "queer" &&
+              displayedWords[k].text == "utopia") ||
+            (displayedWords[k].text == "queer" &&
+              displayedWords[j].text == "utopia")
+          ) {
+            displayedWords[i].connect(
+              displayedWords[k].ellipseX,
+              displayedWords[k].ellipseY,
+              color(255, 0, 0, 70)
+            );
+          }
+        }
+      }
+    }
+  }
+  for (let i = 0; i < displayedWords.length; i++) {
+    displayedWords[i].draw();
+  }
 
-  dystopia.draw();
-  utopia.draw();
-  queer.draw();
-  pattern.draw();
-  no_place.draw();
-
-  frameRate(15);
+  frameRate(20);
+  angleMode(DEGREES);
 }
-let offX = 0.0;
-let offY = 0.0;
 
 function draw() {
-  //   background(255);
-  //     offX += .2
-  //     offY += .3
-  //     let noiseX = noise(offX)
-  //     let noiseY = noise(offY)
-  //     dystopia.move(noiseX, noiseY)
-  //     utopia.move(noiseX, noiseY)
-  //     dystopia.connect(utopia.newEllipseX, utopia.newEllipseY)
-  // console.log('off ' + off + ' noise ' + dystopia.x)
+  // background(255)
+  // push();
+  // fill(color(0, 0, 0, 50));
+  // text(backgroundText, 0, 0, window.innerWidth, fullTextHeight);
+  // pop();
+  // for (let i = 0; i < displayedWords.length; i++) {
+  //   displayedWords[i].draw();
+  //   displayedWords[i].move();
+  // }
 }
 
 function mousePressed() {
@@ -139,17 +173,14 @@ function mousePressed() {
 }
 
 class TextPoint {
-  constructor(t) {
-  // constructor(t, x, y){
+  constructor(t, x, y) {
     this.text = t;
 
     this.fontSize = 20;
-    this.tWidth = textWidth("-") * this.text.length;
+    this.tWidth = textWidth(t);
 
-    this.x = random(0, window.innerWidth - this.text.length * 2);
-    this.y = random(this.fontSize, window.innerHeight - this.fontSize);
-    // this.x = x
-    // this.y = y
+    this.x = x;
+    this.y = y;
 
     this.radius = 10;
     this.offset = 5;
@@ -159,6 +190,8 @@ class TextPoint {
 
     this.newEllipseX = this.x;
     this.newEllipseY = this.y;
+
+    this.angle = 0;
   }
   draw() {
     push();
@@ -168,8 +201,7 @@ class TextPoint {
     push();
     fill(255);
     strokeWeight(0);
-    rotate(PI);
-    rect(-this.tWidth / 2, -this.offset + 1, this.tWidth / 2, this.fontSize);
+    rect(0, -textLeading() + textDescent(), this.tWidth, textLeading());
     pop();
     textSize(this.fontSize);
     let t = text(this.text, 0, 0);
@@ -179,9 +211,6 @@ class TextPoint {
     fill(255);
     stroke(0);
     strokeWeight(2);
-    // this.ellipseX = tWidth/2 + radius/2
-    // this.ellipseX = thistWidth/2
-    // this.ellipseY = 10
     ellipse(this.ellipseX - this.x, this.ellipseY - this.y, this.radius);
 
     pop();
@@ -197,27 +226,13 @@ class TextPoint {
     line(this.ellipseX, this.ellipseY, x, y);
     pop();
   }
-  move(x, y) {
-    let newX = this.x * x;
-    let newY = this.y * y;
+  move(angle) {
+    this.x += this.radius * cos(this.angle);
+    this.y += this.radius * sin(this.angle);
 
-    this.newEllipseX = newX + this.tWidth / 4 + this.radius / 2;
-    this.newEllipseY = newY + this.radius / 2 + this.offset;
-
-    let t = text(this.text, newX, newY);
-
-    ellipse(this.newEllipseX, this.newEllipseY, this.radius);
-
-    // line(newEllipseX, this.ellipseY, x, y)
-
-    // this.x += x
-    // this.y += y
-
-    // if(this.x >= this.originalX + 10 || this.x <= this.originalX - 10){
-    //     this.x = this.originalX
-    // }
-    // if(this.y >= this.originalY + 10 || this.y <= this.originalY -10){
-    //     this.y = this.originalY
-    // }
+    // this.ellipseX+= this.radius * cos(this.angle);
+    // this.ellipseY += this.radius * sin(this.angle);
+    let rand = random(20,30)
+    this.angle+=rand;
   }
 }

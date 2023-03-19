@@ -19,7 +19,7 @@
   </div>
 
   <script>
-    const pages = 3;
+    const pages = 4;
     
     for(let i = 1; i <= pages; i++){
 
@@ -32,19 +32,20 @@
       } else {
           img.src = `assets/page${i}/cover.png`
           link.style.opacity = "0"
-      }
-      img.style.filter = "grayscale(100%)"
-      page1.addEventListener("mouseenter", (e)=>{
-          img.src = `assets/page${i}/cover.gif`
-          img.style.filter = "grayscale(0%)"
-          link.style.opacity = "10"
-      })
-      page1.addEventListener("mouseleave", (e)=>{
-          img.src = `assets/page${i}/cover.png`
+
           img.style.filter = "grayscale(100%)"
-          link.style.opacity = "0"
-      })
-      
+          page1.addEventListener("mouseenter", (e)=>{
+              img.src = `assets/page${i}/cover.gif`
+              img.style.filter = "grayscale(0%)"
+              link.style.opacity = "10"
+          })
+          page1.addEventListener("mouseleave", (e)=>{
+              img.src = `assets/page${i}/cover.png`
+              img.style.filter = "grayscale(100%)"
+              link.style.opacity = "0"
+          })
+      } 
+  
       img.className = "page_image";
       page1.appendChild(img);
 

@@ -148,24 +148,24 @@ function setup() {
       }
     }
   }
-  for (let i = 0; i < displayedWords.length; i++) {
-    displayedWords[i].draw();
-  }
+  // for (let i = 0; i < displayedWords.length; i++) {
+  //   displayedWords[i].draw();
+  // }
 
   frameRate(20);
   angleMode(DEGREES);
 }
 
 function draw() {
-  // background(255)
-  // push();
-  // fill(color(0, 0, 0, 50));
-  // text(backgroundText, 0, 0, window.innerWidth, fullTextHeight);
-  // pop();
-  // for (let i = 0; i < displayedWords.length; i++) {
-  //   displayedWords[i].draw();
-  //   displayedWords[i].move();
-  // }
+  background(255)
+  push();
+  fill(color(0, 0, 0, 50));
+  text(backgroundText, 0, 0, window.innerWidth, fullTextHeight);
+  pop();
+  for (let i = 0; i < displayedWords.length; i++) {
+    displayedWords[i].draw();
+    displayedWords[i].move();
+  }
 }
 
 function mousePressed() {
@@ -211,7 +211,7 @@ class TextPoint {
     fill(255);
     stroke(0);
     strokeWeight(2);
-    ellipse(this.ellipseX - this.x, this.ellipseY - this.y, this.radius);
+    // ellipse(this.ellipseX - this.x, this.ellipseY - this.y, this.radius);
 
     pop();
     pop();

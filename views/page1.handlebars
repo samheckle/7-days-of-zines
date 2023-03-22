@@ -16,7 +16,6 @@
     const looking_image = document.getElementById("looking_image")
 
     if(window.innerHeight < 800){
-        console.log(window.innerHeight)
         touch.style.top = "550px"
     }
 
@@ -27,34 +26,27 @@
     clickable.addEventListener('click', (e)=>{
         console.log("click")
         touch.style.color = "red"
-        //touch.style.transform = "scale(3)"
         setTimeout(()=>{
             touch.style.color = "black"
-        //    touch.style.transform = "scale(1)"
         }, 1000)
     })
-    if(window.innerWidth > 1025){
-        //clickable.addEventListener('mousemove', (e)=>{
-        //    if(dragging){
-        //        looking.style.top = e.pageY
-        //    }
-        //})
-        //clickable.addEventListener('mouseup', (e)=>{
-        //    dragging = false;
-        //})
+    console.log()
+    if(window.matchMedia("(any-hover: hover)").matches){
         looking.addEventListener('mouseenter', (e)=>{
             looking.style.fontSize = "18pt"
             looking.textContent = "👀"
             looking.style.cursor = "grab"
+            if(window.innerWidth < 1025){
+                looking_image.style.width = "60%"
+                looking_image.style.marginLeft = "33%"
+            }
             visTimeoutId = setTimeout(()=>{
                 looking_image.classList.remove("hidden")
                 looking_image.classList.add("visible")
-                console.log("first")
             }, 3000)
             hiddenTimeoutId = setTimeout(()=>{
                 looking_image.classList.add("hidden")
                 looking_image.classList.remove("visible")
-                console.log("second")
             }, 3500)
         })
         looking.addEventListener('mouseleave', (e)=>{

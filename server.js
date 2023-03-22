@@ -35,6 +35,11 @@ app.get('/page-4', (req, res) => {
     res.render('page4', {layout: 'p5'});
 });
 
+app.get('/page-5', (req, res) => {
+    // res.render('home', {layout: false});
+    res.render('page5', {layout: 'main'});
+});
+
 app.get('/about', (req, res) => {
     // res.render('home', {layout: false});
     res.render('about', {layout: 'main'});

@@ -7,11 +7,12 @@ window.onload = () => {
 let dystopia;
 let utopia;
 // generated from chat gpt
-const backgroundText =
+let backgroundText =
   "Queer utopias in anti-patterns explore the possibility of creating alternative societies that reject heteronormativity and embrace queer identities and experiences. Anti-patterns are patterns of behavior or design that lead to negative outcomes, and queer utopias in anti-patterns challenge the dominant heteronormative structures that perpetuate exclusion and oppression. These utopias imagine new possibilities for social organization and seek to create a world where diverse identities and desires can flourish. The ephemeral nature of heteronormativity refers to the idea that the dominant cultural norms around gender and sexuality are not fixed or immutable, but rather constantly shifting and evolving. Queer utopias in anti-patterns recognize that heteronormativity is not a natural or inevitable state of being, but rather a social construct that can be challenged and transformed. By embracing the ephemeral nature of heteronormativity, these utopias reject the idea that there is a single, fixed way to be queer or to resist heteronormative norms. Overall, queer utopias in anti-patterns offer a powerful vision of a world where difference is celebrated and diversity is valued. By imagining new possibilities for social organization and challenging the dominant cultural norms around gender and sexuality, these utopias offer a glimpse of a future where all individuals can live and love freely and without fear of discrimination or exclusion.";
 
 let displayedWords = [];
 let fullTextHeight = 0;
+let wordDataArray = [];
 
 function setup() {
   textSize(20);
@@ -51,9 +52,9 @@ function setup() {
     }
   }
 
-  fullTextHeight = charHeight * rowWords.length
+  fullTextHeight = charHeight * (rowWords.length-2)
 
-  createCanvas(window.innerWidth, fullTextHeight);
+  createCanvas(window.innerWidth, window.innerHeight);
 
   textSize(20);
   textFont("monospace", 20);
@@ -63,7 +64,6 @@ function setup() {
   let searchedWords = ["utopia", "queer", "anti-pattern"];
 
   let locations = [];
-  let wordDataArray = [];
   for (let j = 0; j < searchedWords.length; j++) {
     locations[j] = [];
     let wordData = {
@@ -118,6 +118,14 @@ function setup() {
 
   push();
   fill(color(0, 0, 0, 50));
+  // text(backgroundText, 0, 0, window.innerWidth, fullTextHeight);
+  // if(fullTextHeight < window.innerHeight){
+  //   while(fullTextHeight < window.innerHeight){
+  //     // text(backgroundText, 0, fullTextHeight, window.innerWidth, fullTextHeight);
+  //     backgroundText += " " + backgroundText
+  //     fullTextHeight *= 2;
+  //   }
+  // }
   text(backgroundText, 0, 0, window.innerWidth, fullTextHeight);
   pop();
 
@@ -156,20 +164,62 @@ function setup() {
   angleMode(DEGREES);
 }
 
+let clicked = false;
+
 function draw() {
-  // background(255)
-  // push();
-  // fill(color(0, 0, 0, 50));
-  // text(backgroundText, 0, 0, window.innerWidth, fullTextHeight);
-  // pop();
-  // for (let i = 0; i < displayedWords.length; i++) {
-  //   displayedWords[i].draw();
-  //   displayedWords[i].move();
-  // }
+  if(clicked){
+    background(255)
+    push();
+    fill(color(0, 0, 0, 50));
+    text(backgroundText, 0, 0, window.innerWidth, fullTextHeight);
+    pop();
+    for (let i = 0; i < displayedWords.length; i++) {
+      displayedWords[i].draw();
+      displayedWords[i].move();
+    }
+  } else {
+    background(255)
+
+    push();
+    fill(color(0, 0, 0, 50));
+    text(backgroundText, 0, 0, window.innerWidth, fullTextHeight);
+    pop()
+    for (let j = 0; j < wordDataArray.length; j++) {
+      for (let i = 0; i < displayedWords.length; i++) {
+        if (displayedWords[i].text == wordDataArray[j].word) {
+          for (let k = i + 1; k < displayedWords.length; k++) {
+            if (displayedWords[i].text == displayedWords[k].text) {
+              displayedWords[i].connect(
+                displayedWords[k].ellipseX,
+                displayedWords[k].ellipseY,
+                color(0, 0, 0, 70)
+              );
+            }
+            if (
+              (displayedWords[i].text == "queer" &&
+                displayedWords[k].text == "utopia") ||
+              (displayedWords[k].text == "queer" &&
+                displayedWords[j].text == "utopia")
+            ) {
+              displayedWords[i].connect(
+                displayedWords[k].ellipseX,
+                displayedWords[k].ellipseY,
+                color(255, 0, 0, 70)
+              );
+            }
+          }
+        }
+      }
+    }
+    for (let i = 0; i < displayedWords.length; i++) {
+      displayedWords[i].reset()
+      displayedWords[i].draw();
+    }
+  }
 }
 
 function mousePressed() {
-  noLoop();
+  clicked = !clicked
 }
 
 class TextPoint {
@@ -190,6 +240,9 @@ class TextPoint {
 
     this.newEllipseX = this.x;
     this.newEllipseY = this.y;
+
+    this.oX = x;
+    this.oY = y;
 
     this.angle = 0;
   }
@@ -234,5 +287,9 @@ class TextPoint {
     // this.ellipseY += this.radius * sin(this.angle);
     let rand = random(20,30)
     this.angle+=rand;
+  }
+  reset() {
+    this.x = this.oX
+    this.y = this.oY
   }
 }

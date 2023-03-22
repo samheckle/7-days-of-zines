@@ -1,25 +1,26 @@
 <div class="home-content">
   <div class="page" id="page1">
-      <a id="page1_link" href="/page-1">page 1</a>
+      <a id="page1_link" href="/page-1">forms</a>
   </div>
   <div class="page" id="page2">
-      <a id="page2_link" href="/page-2">page 2</a>
+      <a id="page2_link" href="/page-2">of</a>
   </div>
   <div class="page" id="page3">
-      <a id="page3_link" href="/page-3">page 3</a>
+      <a id="page3_link" href="/page-3"><span>relations</span></a>
     </div>
   <div class="page" id="page4">
-      <a id="page4_link" href="/page-4">page 4</a>
+      <a id="page4_link" href="/page-4">are</a>
   </div>
-  <div class="page page5"></div>
-  <div class="page page6"></div>
-  <div class="page page7"></div>
+  <div class="page" id="page5">
+    <a id="page5_link" href="/page-5"><span>wounds</span></a>
+  </div>
   <div class="page about">
-    <a href="/about">about</a>
+    <a href="/about">///</a>
+  </div>
   </div>
 
   <script>
-    const pages = 4;
+    const pages = 5;
     
     for(let i = 1; i <= pages; i++){
 
@@ -29,6 +30,7 @@
       if(window.innerWidth < 1025){
           img.src = `assets/page${i}/cover.gif`
           link.style.opacity = "10"
+          img.style.filter = "grayscale(100%)"
       } else {
           img.src = `assets/page${i}/cover.png`
           link.style.opacity = "0"
